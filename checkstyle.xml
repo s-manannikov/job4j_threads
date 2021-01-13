@@ -15,13 +15,13 @@
     <!-- Checks for Headers                                -->
     <!-- See http://checkstyle.sf.net/config_header.html   -->
     <!-- <module name="Header"> -->
-    <!--   <property name="headerFile" value="${checkstyle.header.subPoint}"/> -->
+    <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
 
     <module name="TreeWalker">
 
-        <module name="EmptyLineSeparator"> <!-- Java Style Guide: Source subPoint structure -->
+        <module name="EmptyLineSeparator"> <!-- Java Style Guide: Source file structure -->
             <property name="tokens" value="
             CLASS_DEF, ENUM_DEF, INTERFACE_DEF, CTOR_DEF, STATIC_INIT, INSTANCE_INIT, VARIABLE_DEF, METHOD_DEF"/>
             <property name="allowNoEmptyLineBetweenFields" value="true"/>
@@ -100,5 +100,4 @@
         <module name="UpperEll"/>
 
     </module>
-
 </module>
