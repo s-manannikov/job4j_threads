@@ -1,6 +1,6 @@
 package ru.job4j.concurrent;
 
-public class ThreadSleep {
+public class Wget {
 
     public static void main(String[] args) {
         Thread thread = new Thread(
@@ -13,7 +13,7 @@ public class ThreadSleep {
                         }
                         System.out.println(System.lineSeparator() + "Loaded.");
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
         );
