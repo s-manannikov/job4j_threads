@@ -1,19 +1,19 @@
 package ru.job4j.concurrent;
 
 public class ConsoleProgress implements Runnable {
+    private static final char[] SYMBOLS = {'-', '\\', '|', '/'};
 
     @Override
     public void run() {
-        try {
-            char[] symbols = {'-', '\\', '|', '/'};
-            while (!Thread.currentThread().isInterrupted()) {
-                for (char i : symbols) {
-                    System.out.print("\rload: " + i);
+        while (!Thread.currentThread().isInterrupted()) {
+            for (char i : SYMBOLS) {
+                System.out.print("\rload: " + i);
+                try {
                     Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
