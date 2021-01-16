@@ -22,7 +22,6 @@ public class UserStorageTest {
         User user2 = new User(1, 567);
         store.add(user1);
         assertTrue(store.update(user2));
-        assertEquals(store.get(1).getAmount(), 567);
     }
 
     @Test
