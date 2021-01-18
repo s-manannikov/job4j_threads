@@ -7,6 +7,7 @@ public class SimpleArray<T> implements Iterable<T> {
     private int size = 0;
     private int modCount = 0;
 
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         Objects.checkIndex(index, size);
         return (T) container[index];
@@ -31,6 +32,7 @@ public class SimpleArray<T> implements Iterable<T> {
         return rsl;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
