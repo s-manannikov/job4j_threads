@@ -16,10 +16,6 @@ public class SimpleBlockingQueue<T> {
         this.size = size;
     }
 
-    public synchronized Queue<T> getQueue() {
-        return queue;
-    }
-
     public synchronized void offer(T value) {
         while (queue.size() == size) {
             try {
@@ -29,7 +25,7 @@ public class SimpleBlockingQueue<T> {
             }
         }
         queue.offer(value);
-        notify();
+        notifyAll();
     }
 
     public synchronized T poll() {
@@ -42,7 +38,7 @@ public class SimpleBlockingQueue<T> {
             }
         }
         T obj = queue.poll();
-        notify();
+        notifyAll();
         return obj;
     }
 }
