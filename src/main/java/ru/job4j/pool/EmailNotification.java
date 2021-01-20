@@ -26,12 +26,11 @@ public class EmailNotification {
     }
 
     private String getSubj(User user) {
-        return "Notification " + user.getUsername()
-                + " to email " + user.getEmail();
+        return String.format("Notification %s to email %s", user.getUsername(), user.getEmail());
     }
 
     private String getBody(User user) {
-        return "Add a new event to " + user.getUsername();
+        return String.format("Add a new event to %s", user.getUsername());
     }
 
     public static void main(String[] args) {
