@@ -9,11 +9,12 @@ import static org.junit.Assert.*;
 public class CASCountTest {
 
     @Test
-    public void whenIncrementAndGet() {
+    public void whenIncrementAndGet() throws InterruptedException {
         CASCount<Integer> count = new CASCount<>();
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i < 100; i++) {
             new Thread(count::increment).start();
         }
+        Thread.sleep(100);
         assertEquals(count.get(), 100);
     }
 
