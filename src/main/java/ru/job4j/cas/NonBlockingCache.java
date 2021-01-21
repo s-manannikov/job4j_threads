@@ -9,10 +9,7 @@ public class NonBlockingCache {
         return map.putIfAbsent(model.getId(), model) != null;
     }
 
-    public boolean update(Base newModel) {
-        if (map.get(newModel.getId()) == null) {
-            return false;
-        }
+    public void update(Base newModel) {
         Base currentModel = map.get(newModel.getId());
         int currentVersion = currentModel.getVersion();
         map.computeIfPresent(newModel.getId(), (key, value) -> {
@@ -23,7 +20,6 @@ public class NonBlockingCache {
             }
             return value;
         });
-        return true;
     }
 
     public boolean delete(Base model) {
