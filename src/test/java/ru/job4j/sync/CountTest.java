@@ -21,14 +21,18 @@ public class CountTest {
     }
 
     @Test
-    public void whenExecute2ThreadThen2() throws InterruptedException {
+    public void whenExecute2ThreadThen2() {
         final Count count = new Count();
         Thread first = new ThreadCount(count);
         Thread second = new ThreadCount(count);
         first.start();
         second.start();
-        first.join();
-        second.join();
+        try {
+            first.join();
+            second.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         assertThat(count.get(), is(2));
     }
 }
