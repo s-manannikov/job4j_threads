@@ -12,7 +12,7 @@ public class ParallelSearchTest {
         for (int i = 0; i < 100; i++) {
             array[i] = i;
         }
-        ParallelSearch<Integer> p = new ParallelSearch<>(array, 77);
+        ParallelSearch<Integer> p = new ParallelSearch<>(array, 77, 0, 100);
         assertEquals(p.find(), 77);
     }
 
@@ -22,7 +22,7 @@ public class ParallelSearchTest {
         for (int i = 0; i < 100; i++) {
             array[i] = i;
         }
-        ParallelSearch<Integer> p = new ParallelSearch<>(array, 777);
+        ParallelSearch<Integer> p = new ParallelSearch<>(array, 777, 0, 100);
         assertEquals(p.find(), -1);
     }
 }

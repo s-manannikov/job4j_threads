@@ -6,19 +6,14 @@ import java.util.concurrent.RecursiveTask;
 public class ParallelSearch<T> extends RecursiveTask<Integer> {
     private final T[] array;
     private final T el;
-    private int from;
-    private int to;
+    private final int from;
+    private final int to;
 
     public ParallelSearch(T[] array, T el, int from, int to) {
         this.array = array;
         this.el = el;
-        this.from = 0;
-        this.to = array.length - 1;
-    }
-
-    public ParallelSearch(T[] array, T el) {
-        this.array = array;
-        this.el = el;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
@@ -26,12 +21,12 @@ public class ParallelSearch<T> extends RecursiveTask<Integer> {
         if (from - to <= 10) {
             return indexOf();
         }
-        int mid = (from - to) / 2;
-        ParallelSearch<T> ps = new ParallelSearch<>(array, el, from, mid);
+        int mid = (from + to) / 2;
+        ParallelSearch<T> ps1 = new ParallelSearch<>(array, el, from, mid);
         ParallelSearch<T> ps2 = new ParallelSearch<>(array, el, mid + 1, to);
-        ps.fork();
+        ps1.fork();
         ps2.fork();
-        return Math.max(ps.join(), ps2.join());
+        return Math.max(ps1.join(), ps2.join());
     }
 
     private int indexOf() {
@@ -46,6 +41,6 @@ public class ParallelSearch<T> extends RecursiveTask<Integer> {
 
     public int find() {
         ForkJoinPool fjp = new ForkJoinPool();
-        return fjp.invoke(new ParallelSearch<>(array, el));
+        return fjp.invoke(new ParallelSearch<>(array, el, 0, array.length - 1));
     }
 }
