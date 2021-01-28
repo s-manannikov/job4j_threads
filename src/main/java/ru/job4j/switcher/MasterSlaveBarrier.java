@@ -1,30 +1,38 @@
 package ru.job4j.switcher;
 
 public class MasterSlaveBarrier {
-    boolean flag = true;
+    boolean flag = false;
 
     public synchronized void tryMaster() {
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (flag) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public synchronized void trySlave() {
+        while (!flag) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public synchronized void doneMaster() {
+        if (!flag) {
+            notify();
         }
         flag = true;
     }
     
-    public synchronized void trySlave() {
-        notify();
-    }
-    
-    public synchronized void doneMaster() {
-        notify();
-    }
-    
     public synchronized void doneSlave() {
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (flag) {
+            notify();
         }
         flag = false;
     }

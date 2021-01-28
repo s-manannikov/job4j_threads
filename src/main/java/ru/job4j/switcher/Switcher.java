@@ -7,30 +7,26 @@ public class Switcher {
         Thread first = new Thread(
                 () -> {
                     while (true) {
-                        if (barrier.flag) {
-                            barrier.tryMaster();
-                            System.out.println("Thread A");
-                            try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            barrier.doneMaster();
-                        }
-                    }
-                });
-        Thread second = new Thread(
-                () -> {
-                    while (true) {
-                        if (!barrier.flag) {
-                            System.out.println("Thread B");
-                        }
+                        barrier.tryMaster();
+                        System.out.println("Thread A");
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        barrier.doneMaster();
+                    }
+                });
+        Thread second = new Thread(
+                () -> {
+                    while (true) {
                         barrier.trySlave();
+                        System.out.println("Thread B");
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         barrier.doneSlave();
                     }
                 });
